@@ -23,7 +23,7 @@ func Generator(ctx context.Context, ch chan<- int64, fn func(i int64)) {
 		select {
 		case ch <- n:{
 			fn(n)
-			n = n + 1
+			atomic.AddInt64(&n, 1)
 		} 
 		case <-ctx.Done(): return
 		}
